@@ -74,8 +74,11 @@ function formatXml(xml) {
 
 function queryCondition(selectorText, classNames = []) {
 	for (let c of classNames) {
-		if(selectorText.indexOf('.'+c) > -1) {
-			return true
+		for (let t of selectorText.split(' ')) {
+			// if(selectorText.indexOf('.'+c) > -1) {
+			if(t === ('.'+c) ) {
+				return true
+			}
 		}
 	}
 	return false
