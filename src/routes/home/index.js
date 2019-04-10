@@ -16,7 +16,7 @@ class Home extends Component {
 		this.props.onSelect('header2')
 	}
 
-	render({selectHeader}) {
+	render({selectHeader, html}) {
 		return (
 			<div class={'home'}>
 				<h1>Home</h1>
@@ -28,7 +28,7 @@ class Home extends Component {
 					click2
 				</button>
 				<div>
-					<textarea value={getHtml()}>
+					<textarea value={html}>
 					</textarea>	
 					<textarea value={getCss([selectHeader])}/>
 				</div>

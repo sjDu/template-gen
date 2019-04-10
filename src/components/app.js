@@ -8,6 +8,8 @@ import Header2 from './header2';
 import Home from '../routes/home';
 // import Profile from '../routes/profile';
 
+var formattor = require("formattor");
+
 const headers = {
 	header: () => <Header/>,
 	header2: () => <Header2/>
@@ -16,7 +18,18 @@ const headers = {
 export default class App extends Component {
 
 	state = {
-		selectHeader: 'header'
+		selectHeader: 'header',
+		html: ''
+	}
+
+	componentDidMount() {
+		this.setState({html: getHtml()})
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if(prevState.selectHeader != this.state.selectHeader) {
+			this.setState({html: getHtml()})
+		}
 	}
 	
 	/** Gets fired when the route changes.
@@ -33,13 +46,14 @@ export default class App extends Component {
 		})
 	}
 
-	render({}, {selectHeader}) {
+	render({}, {selectHeader, html}) {
 		return (
 			<div id="app">
 				{/* <Header /> */}
 				{headers[selectHeader]()}
 				<Home path="/" onSelect={this.handleSelectHeader} 
 					selectHeader={selectHeader}
+					html={html}
 				/>
 				{/* <Router onChange={this.handleRoute}>
 					<Home path="/" />
@@ -49,4 +63,9 @@ export default class App extends Component {
 			</div>
 		);
 	}
+}
+
+function getHtml() {
+	var a = document.getElementById('app')
+	return formattor(a.innerHTML, {method: 'xml'})
 }
